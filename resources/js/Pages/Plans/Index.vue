@@ -11,7 +11,11 @@ const form = useForm({});
 
 const deletePost = (id) => {
   if (confirm("Are you sure you want to delete this plan?")) {
-    form.delete(`plans/${id}`);
+    form.delete(`/plans/${id}`).then(() => {
+      console.log('Deleted successfully');
+    }).catch((error) => {
+      console.error('Error deleting:', error);
+    });
   }
 };
 </script>

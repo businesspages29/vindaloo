@@ -59,8 +59,10 @@ class ComboPlanController extends Controller
         return redirect()->route('comboplans.index');
     }
 
-    public function destroy(ComboPlan $record)
+    public function destroy($id)
     {
+        $record = ComboPlan::find($id);
+        $record->plans()->detach();
         $record->delete();
 
         return redirect()->back();

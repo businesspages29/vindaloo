@@ -44,8 +44,9 @@ class EligibilityCriteriaController extends Controller
         return redirect()->route('eligibilitycriterias.index');
     }
 
-    public function destroy(EligibilityCriteria $record)
+    public function destroy($id)
     {
+        $record = EligibilityCriteria::find($id);
         $record->delete();
 
         return redirect()->back();
