@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\EligibilityCriteriaRequest;
 use App\Models\EligibilityCriteria;
-use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class EligibilityCriteriaController extends Controller
@@ -30,13 +29,16 @@ class EligibilityCriteriaController extends Controller
         return redirect()->route('eligibilitycriterias.index');
     }
 
-    public function edit(EligibilityCriteria $record)
+    public function edit($id)
     {
+        $record = EligibilityCriteria::find($id);
+
         return Inertia::render('EligibilityCriterias/Edit', ['record' => $record]);
     }
 
-    public function update(Request $request, EligibilityCriteria $record)
+    public function update(EligibilityCriteriaRequest $request, $id)
     {
+        $record = EligibilityCriteria::find($id);
         $record->update($request->all());
 
         return redirect()->route('eligibilitycriterias.index');

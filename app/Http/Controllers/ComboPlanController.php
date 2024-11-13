@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ComboPlanRequest;
 use App\Models\ComboPlan;
-use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class ComboPlanController extends Controller
@@ -30,13 +29,16 @@ class ComboPlanController extends Controller
         return redirect()->route('comboplans.index');
     }
 
-    public function edit(ComboPlan $record)
+    public function edit($id)
     {
+        $record = ComboPlan::find($id);
+
         return Inertia::render('ComboPlans/Edit', ['record' => $record]);
     }
 
-    public function update(Request $request, ComboPlan $record)
+    public function update(ComboPlanRequest $request, $id)
     {
+        $record = ComboPlan::find($id);
         $record->update($request->all());
 
         return redirect()->route('comboplans.index');

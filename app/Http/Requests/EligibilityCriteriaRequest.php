@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
 class EligibilityCriteriaRequest extends FormRequest
 {
@@ -11,7 +12,7 @@ class EligibilityCriteriaRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return Auth::check();
     }
 
     /**
@@ -22,7 +23,12 @@ class EligibilityCriteriaRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'name' => ['required', 'string'],
+            'age_less_than' => ['nullable', 'integer'],
+            'age_greater_than' => ['nullable', 'integer'],
+            'last_login_days_ago' => ['nullable', 'integer'],
+            'income_less_than' => ['nullable', 'integer'],
+            'income_greater_than' => ['nullable', 'integer'],
         ];
     }
 }

@@ -10,7 +10,9 @@ defineProps({
 const form = useForm({});
 
 const deletePost = (id) => {
+  if (confirm("Are you sure you want to delete this plan?")) {
     form.delete(`comboplans/${id}`);
+  }
 };
 </script>
 

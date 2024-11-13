@@ -2,6 +2,9 @@
 
 namespace Database\Seeders;
 
+use App\Models\ComboPlan;
+use App\Models\EligibilityCriteria;
+use App\Models\Plan;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -20,10 +23,10 @@ class DatabaseSeeder extends Seeder
             'email' => 'admin@admin.com',
         ]);
 
-        $this->call([
-            PlanSeeder::class,
-            ComboPlanSeeder::class,
-            EligibilityCriteriaSeeder::class,
-        ]);
+        Plan::factory(10)->create();
+        ComboPlan::factory(10)
+            ->has(Plan::factory()->count(3)) // Create 3 related Plan records
+            ->create();
+        EligibilityCriteria::factory(10)->create();
     }
 }

@@ -1,10 +1,15 @@
 <script setup>
+import InputField from '@/Components/InputField.vue';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { useForm, Link } from "@inertiajs/vue3";
 
 const form = useForm({
   name: "",
-  price: "",
+age_less_than: "",
+age_greater_than: "",
+last_login_days_ago: "",
+income_less_than: "",
+income_greater_than: "",
 });
 
 const submit = () => {
@@ -27,20 +32,60 @@ const submit = () => {
                         <Link href="/eligibilitycriterias"><button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded my-3">Back</button></Link>
                         
                         <form @submit.prevent="submit">
-                            <div class="mb-4">
-                                <label 
-                                    for="name" 
-                                    class="block text-gray-700 text-sm font-bold mb-2">
-                                    Name:</label>
-                                <input 
-                                    type="text" 
-                                    class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
-                                    placeholder="Enter Name" 
-                                    id="name"
-                                    v-model="form.name" />
+                            <InputField 
+                                label="Name" 
+                                id="name"
+                                type="text" 
+                                placeholder="Enter Name" 
+                                v-model="form.name"
+                                :error="form.errors.name"
+                            />
+            
+                            <InputField 
+                                label="Age Less Than" 
+                                id="age_less_than"
+                                type="number" 
+                                placeholder="Enter Age Less Than" 
+                                v-model="form.age_less_than"
+                                :error="form.errors.age_less_than"
+                            />
 
-                            </div>
+                            <InputField 
+                                label="Age Greater Than" 
+                                id="age_greater_than"
+                                type="number" 
+                                placeholder="Enter Age Greater Than" 
+                                v-model="form.age_greater_than"
+                                :error="form.errors.age_greater_than"
+                            />
 
+                            <InputField 
+                                label="Last Login Days Ago" 
+                                id="last_login_days_ago"
+                                type="number" 
+                                placeholder="Enter Last Login Days Ago" 
+                                v-model="form.last_login_days_ago"
+                                :error="form.errors.last_login_days_ago"
+                            />
+
+                            <InputField 
+                                label="Income Less Than" 
+                                id="income_less_than"
+                                type="number" 
+                                placeholder="Enter Income Less Than" 
+                                v-model="form.income_less_than"
+                                :error="form.errors.income_less_than"
+                            />
+
+                            <InputField 
+                                label="Income Greater Than" 
+                                id="income_greater_than"
+                                type="number" 
+                                placeholder="Enter Income Greater Than" 
+                                v-model="form.income_greater_than"
+                                :error="form.errors.income_greater_than"
+                                />
+                                
                             <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded my-3 text-white">
                                 Submit
                             </button>

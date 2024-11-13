@@ -18,6 +18,6 @@ class ComboPlan extends Model
 
     public function plans()
     {
-        return $this->belongsToMany(ComboPlanPlan::class);
+        return $this->belongsToMany(Plan::class, 'combo_plan_plan')->withTimestamps();
     }
 }

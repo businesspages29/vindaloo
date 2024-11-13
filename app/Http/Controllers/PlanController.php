@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\PlanRequest;
 use App\Models\Plan;
-use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class PlanController extends Controller
@@ -30,13 +29,16 @@ class PlanController extends Controller
         return redirect()->route('plans.index');
     }
 
-    public function edit(Plan $record)
+    public function edit($id)
     {
+        $record = Plan::find($id);
+
         return Inertia::render('Plans/Edit', ['record' => $record]);
     }
 
-    public function update(Request $request, Plan $record)
+    public function update(PlanRequest $request, $id)
     {
+        $record = Plan::find($id);
         $record->update($request->all());
 
         return redirect()->route('plans.index');
