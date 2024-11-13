@@ -25,6 +25,7 @@ class ComboPlanRequest extends FormRequest
         return [
             'name' => ['required', 'string'],
             'price' => ['required', 'numeric'],
+            'plans' => ['required', 'array'],
         ];
     }
 }

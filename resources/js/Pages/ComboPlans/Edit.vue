@@ -2,7 +2,9 @@
 import InputField from '@/Components/InputField.vue';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { useForm, Link } from "@inertiajs/vue3";
-
+import { ref } from 'vue';
+import VueMultiselect from "vue-multiselect";
+const plans = ref([]); // Initialize as an empty array
 const props = defineProps({
   record: {
     type: Object,
@@ -13,10 +15,22 @@ const props = defineProps({
 const form = useForm({
   name: props.record.name,
   price: props.record.price,
+plans: [],
 });
 
 const submit = () => {
   form.put(`/comboplans/${props.record.id}`);
+};
+
+const asyncFind = async (query) => {
+  const response = await fetch(
+    `/plan-ajax?search=${query}`
+  );
+  const data = await response.json();
+  plans.value = Object.keys(data).map(key => ({
+    code: key,
+    name: data[key],
+  }));
 };
 </script>
 
@@ -35,7 +49,22 @@ const submit = () => {
                         <Link href="/comboplans"><button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded my-3">Back</button></Link>
                         
                         <form @submit.prevent="submit">
-                           
+                            <VueMultiselect
+                            v-model="form.plans"
+                            :options="plans"
+                            :multiple="multiple"
+                            :searchable="searchable"
+                            @search-change="asyncFind"
+                            placeholder="Type to search"
+                            label="name"
+                            track-by="code"
+                            class="w-full md:w-80"
+                            >
+                            <template #noResult>
+                                Oops! No elements found. Consider changing the search query.
+                            </template>
+                            </VueMultiselect>
+
                             <InputField 
                                 label="Name" 
                                 id="name"

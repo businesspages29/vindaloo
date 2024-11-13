@@ -27,7 +27,9 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::resource('plans', PlanController::class);
     Route::resource('comboplans', ComboPlanController::class);
+    Route::get('/plan-ajax', [ComboPlanController::class, 'planAjax'])->name('comboplans.planAjax');
     Route::resource('eligibilitycriterias', EligibilityCriteriaController::class);
+
 });
 
 require __DIR__.'/auth.php';

@@ -17,16 +17,16 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         // User::factory(10)->create();
-
+        $limit = 100000;
         User::factory()->create([
             'name' => 'Admin',
             'email' => 'admin@admin.com',
         ]);
 
-        Plan::factory(10)->create();
-        ComboPlan::factory(10)
+        Plan::factory($limit)->create();
+        ComboPlan::factory($limit)
             ->has(Plan::factory()->count(3)) // Create 3 related Plan records
             ->create();
-        EligibilityCriteria::factory(10)->create();
+        EligibilityCriteria::factory($limit)->create();
     }
 }

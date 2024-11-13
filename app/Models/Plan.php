@@ -19,4 +19,13 @@ class Plan extends Model
     {
         return $this->belongsToMany(ComboPlan::class, 'combo_plan_plan')->withTimestamps();
     }
+
+    public function scopeSearch($query, $search)
+    {
+        if (! $search) {
+            return $query;
+        }
+
+        return $query->where('name', 'like', '%'.$search.'%');
+    }
 }
